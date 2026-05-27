@@ -13,3 +13,7 @@ func TestMaxInt(t *testing.T) {
 		t.Errorf("expected %d, got %d", b, res)
 	}
 }
+
+func TestMainRace(t *testing.T) {
+	main()
+}
