@@ -9,8 +9,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-go@v4
+    - uses: actions/checkout@v6
+    - uses: actions/setup-go@v6
+      with:
+        go-version-file: go.mod
 
     - name: Build
       run: go build -v ./...
@@ -20,8 +22,10 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-go@v4
+    - uses: actions/checkout@v6
+    - uses: actions/setup-go@v6
+      with:
+        go-version-file: go.mod
 
     - name: Test
       run: go test -v ./...
@@ -32,8 +36,10 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-go@v4
+    - uses: actions/checkout@v6
+    - uses: actions/setup-go@v6
+      with:
+        go-version-file: go.mod
 
     - name: Test
       run: go test -race -v ./...
@@ -41,10 +47,13 @@ jobs:
   # Задание проверяет код на соответствие стилю и отсутствие логических ошибок
   lint:
     # Задание "lint" зависит от заданий "tests" и "tests-race" и будет выполнено после них
-    needs: [tests, tests-race]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-go@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
       # Используется действие "golangci/golangci-lint-action@v3", которое запускает линтер. Он проверит код на соответствие стилю и отсутствие логических ошибок
-      - uses: golangci/golangci-lint-action@v3
+      - uses: golangci/golangci-lint-action@v9
+        with:
+          version: v2.12
